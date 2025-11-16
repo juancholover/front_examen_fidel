@@ -1,0 +1,58 @@
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Categorías / Clientes</h3>
+    <div>
+      <button class="btn btn-success btn-sm" (click)="new()">Nuevo</button>
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Teléfono</th>
+        <th>Email</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of clientes; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ c.nombre }}</td>
+        <td>{{ c.telefono }}</td>
+        <td>{{ c.email }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2" (click)="edit(c)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="remove(c)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="editing" class="card mt-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ model.id ? 'Editar' : 'Nuevo' }} Cliente</h5>
+      <form (ngSubmit)="save()">
+        <div class="mb-2">
+          <label class="form-label">Nombre</label>
+          <input class="form-control" [(ngModel)]="model.nombre" name="nombre" required />
+        </div>
+        <div class="mb-2 row">
+          <div class="col">
+            <label class="form-label">Teléfono</label>
+            <input class="form-control" [(ngModel)]="model.telefono" name="telefono" />
+          </div>
+          <div class="col">
+            <label class="form-label">Email</label>
+            <input class="form-control" [(ngModel)]="model.email" name="email" />
+          </div>
+        </div>
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">Guardar</button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

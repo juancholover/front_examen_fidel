@@ -1,0 +1,58 @@
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Títulos</h3>
+    <div>
+      <button class="btn btn-primary btn-sm" (click)="new()">Nuevo</button>
+    </div>
+  </div>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Denominación</th>
+        <th>Año</th>
+        <th>Tema</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let t of titulos; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ t.denominacion }}</td>
+        <td>{{ t.anio }}</td>
+        <td>{{ t.tema }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2" (click)="edit(t)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="remove(t)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="editing" class="card mt-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ model.id ? 'Editar' : 'Nuevo' }} Título</h5>
+      <form (ngSubmit)="save()">
+        <div class="mb-2">
+          <label class="form-label">Denominación</label>
+          <input class="form-control" [(ngModel)]="model.denominacion" name="denominacion" required />
+        </div>
+        <div class="row">
+          <div class="col-3 mb-2">
+            <label class="form-label">Año</label>
+            <input type="number" class="form-control" [(ngModel)]="model.anio" name="anio" />
+          </div>
+          <div class="col mb-2">
+            <label class="form-label">Tema</label>
+            <input class="form-control" [(ngModel)]="model.tema" name="tema" />
+          </div>
+        </div>
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">Guardar</button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

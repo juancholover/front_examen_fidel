@@ -1,0 +1,64 @@
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>CDs</h3>
+    <div>
+      <button class="btn btn-primary btn-sm" (click)="new()">Nuevo</button>
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nro CD</th>
+        <th>Condición</th>
+        <th>Ubicación</th>
+        <th>Título ID</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of cds; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ c.nroCd }}</td>
+        <td>{{ c.condicion }}</td>
+        <td>{{ c.ubicacion }}</td>
+        <td>{{ c.titulo?.id }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2" (click)="edit(c)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="remove(c)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="editing" class="card mt-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ model.id ? 'Editar' : 'Nuevo' }} CD</h5>
+      <form (ngSubmit)="save()">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label class="form-label">Nro CD</label>
+            <input class="form-control" [(ngModel)]="model.nroCd" name="nroCd" />
+          </div>
+          <div class="col-3">
+            <label class="form-label">Condición</label>
+            <input class="form-control" [(ngModel)]="model.condicion" name="condicion" />
+          </div>
+          <div class="col-3">
+            <label class="form-label">Ubicación</label>
+            <input class="form-control" [(ngModel)]="model.ubicacion" name="ubicacion" />
+          </div>
+          <div class="col-3">
+            <label class="form-label">Título ID</label>
+            <input class="form-control" [(ngModel)]="model.titulo!.id" name="tituloId" />
+          </div>
+        </div>
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">Guardar</button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

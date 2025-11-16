@@ -1,0 +1,64 @@
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Detalle Alquiler</h3>
+    <div>
+      <button class="btn btn-success btn-sm" (click)="new()">Nuevo</button>
+    </div>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Alquiler ID</th>
+        <th>CD ID</th>
+        <th>Días</th>
+        <th>Devolución</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of detalles; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ d.alquiler?.id }}</td>
+        <td>{{ d.cd?.id }}</td>
+        <td>{{ d.diasPrestamo }}</td>
+        <td>{{ d.fechaDevolucion }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2" (click)="edit(d)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="remove(d)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="editing" class="card mt-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ model.id ? 'Editar' : 'Nuevo' }} Detalle</h5>
+      <form (ngSubmit)="save()">
+        <div class="row mb-2">
+          <div class="col-3">
+            <label class="form-label">Alquiler ID</label>
+            <input class="form-control" [(ngModel)]="model.alquiler!.id" name="alquilerId" />
+          </div>
+          <div class="col-3">
+            <label class="form-label">CD ID</label>
+            <input class="form-control" [(ngModel)]="model.cd!.id" name="cdId" />
+          </div>
+          <div class="col-2">
+            <label class="form-label">Días</label>
+            <input type="number" class="form-control" [(ngModel)]="model.diasPrestamo" name="diasPrestamo" />
+          </div>
+          <div class="col-3">
+            <label class="form-label">Fecha Devolución</label>
+            <input type="date" class="form-control" [(ngModel)]="model.fechaDevolucion" name="fechaDevolucion" />
+          </div>
+        </div>
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">Guardar</button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
